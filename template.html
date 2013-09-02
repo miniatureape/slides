@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+    <head>
+        <title></title>
+        <style>
+            body {
+                font-family: Georgia;
+                background: #f5f5f5;
+                margin: 0;
+                padding: 20px;
+            }
+
+            body.editable {
+                border-top: 5px solid red;
+            }
+
+            h1 {
+                margin: 0;
+                line-height: 54px;
+                font-size: 48px;
+            }
+
+            section {
+                position: absolute;
+                font-size: 36px;
+                opacity: 0; 
+                -webkit-transition: opacity .5s;
+            }
+
+            .display {
+                opacity: 1;
+                z-index: 10;
+            }
+
+            .sourcetable {
+                color: #444;
+                font-family: 'Courier New', monospace;
+                font-size: 24px;
+                line-height: 19px;
+                -moz-border-radius:2px;
+                -webkit-border-radius:2px;
+                border-radius:2px;
+                max-width: 100%;
+            }
+
+            .sourcetable .linenos {
+                color: #DFDFF0;
+            }
+
+            .sourcetable td {
+                padding: 0 10px;
+            }
+
+            .sourcetable .hll { background-color: #ffffcc }
+            .sourcetable  { background: #f8f8f8; }
+            .sourcetable .c { color: #408080; font-style: italic } /* Comment */
+            .sourcetable .err { border: 1px solid #FF0000 } /* Error */
+            .sourcetable .k { color: #008000; font-weight: bold } /* Keyword */
+            .sourcetable .o { color: #666666 } /* Operator */
+            .sourcetable .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+            .sourcetable .cp { color: #BC7A00 } /* Comment.Preproc */
+            .sourcetable .c1 { color: #408080; font-style: italic } /* Comment.Single */
+            .sourcetable .cs { color: #408080; font-style: italic } /* Comment.Special */
+            .sourcetable .gd { color: #A00000 } /* Generic.Deleted */
+            .sourcetable .ge { font-style: italic } /* Generic.Emph */
+            .sourcetable .gr { color: #FF0000 } /* Generic.Error */
+            .sourcetable .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+            .sourcetable .gi { color: #00A000 } /* Generic.Inserted */
+            .sourcetable .go { color: #808080 } /* Generic.Output */
+            .sourcetable .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+            .sourcetable .gs { font-weight: bold } /* Generic.Strong */
+            .sourcetable .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+            .sourcetable .gt { color: #0040D0 } /* Generic.Traceback */
+            .sourcetable .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+            .sourcetable .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+            .sourcetable .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+            .sourcetable .kp { color: #008000 } /* Keyword.Pseudo */
+            .sourcetable .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+            .sourcetable .kt { color: #B00040 } /* Keyword.Type */
+            .sourcetable .m { color: #666666 } /* Literal.Number */
+            .sourcetable .s { color: #BA2121 } /* Literal.String */
+            .sourcetable .na { color: #7D9029 } /* Name.Attribute */
+            .sourcetable .nb { color: #008000 } /* Name.Builtin */
+            .sourcetable .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+            .sourcetable .no { color: #880000 } /* Name.Constant */
+            .sourcetable .nd { color: #AA22FF } /* Name.Decorator */
+            .sourcetable .ni { color: #999999; font-weight: bold } /* Name.Entity */
+            .sourcetable .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+            .sourcetable .nf { color: #0000FF } /* Name.Function */
+            .sourcetable .nl { color: #A0A000 } /* Name.Label */
+            .sourcetable .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+            .sourcetable .nt { color: #008000; font-weight: bold } /* Name.Tag */
+            .sourcetable .nv { color: #19177C } /* Name.Variable */
+            .sourcetable .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+            .sourcetable .w { color: #bbbbbb } /* Text.Whitespace */
+            .sourcetable .mf { color: #666666 } /* Literal.Number.Float */
+            .sourcetable .mh { color: #666666 } /* Literal.Number.Hex */
+            .sourcetable .mi { color: #666666 } /* Literal.Number.Integer */
+            .sourcetable .mo { color: #666666 } /* Literal.Number.Oct */
+            .sourcetable .sb { color: #BA2121 } /* Literal.String.Backtick */
+            .sourcetable .sc { color: #BA2121 } /* Literal.String.Char */
+            .sourcetable .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+            .sourcetable .s2 { color: #BA2121 } /* Literal.String.Double */
+            .sourcetable .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+            .sourcetable .sh { color: #BA2121 } /* Literal.String.Heredoc */
+            .sourcetable .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+            .sourcetable .sx { color: #008000 } /* Literal.String.Other */
+            .sourcetable .sr { color: #BB6688 } /* Literal.String.Regex */
+            .sourcetable .s1 { color: #BA2121 } /* Literal.String.Single */
+            .sourcetable .ss { color: #19177C } /* Literal.String.Symbol */
+            .sourcetable .bp { color: #008000 } /* Name.Builtin.Pseudo */
+            .sourcetable .vc { color: #19177C } /* Name.Variable.Class */
+            .sourcetable .vg { color: #19177C } /* Name.Variable.Global */
+            .sourcetable .vi { color: #19177C } /* Name.Variable.Instance */
+            .sourcetable .il { color: #666666 } /* Literal.Number.Integer.Long */
+        </style>
+    </head>
+    <body>
+        $content
+        <script>
+            (function() {
+
+                // Globals
+                var index = 0;
+                var sections = null;
+                var editMode = false;
+
+                var qsa = function(selector) {
+                    return document.querySelectorAll(selector);
+                }
+
+                var hide = function(section) {
+                    section.className = '';
+                }
+
+                var show = function() {
+                    try {
+                        history.pushState({}, "Page 2", "/slide/" + index);
+                    } catch (e) {
+                        console.warn('Can\'t modify history.');
+                    }
+                    each(sections, hide);
+                    sections[index].className = 'display';
+                }
+
+                var each = function(list, fn) {
+                    for (var i = 0; i < list.length; i++) {
+                        fn(list[i]);
+                    }
+                };
+
+                var next = function() {
+                   if (index < sections.length - 1) {
+                       index++;
+                       show();
+                   }
+                }
+
+                var prev = function() {
+                    if (index > 0) { 
+                        index--;
+                        show();
+                    }
+                };
+
+                var toggleEditmode = function() {
+                    // Its nice to be able to edit your examples text in place
+                    editMode = !editMode;
+                    if (editMode) {
+                        window.document.body.setAttribute('contenteditable', true);
+                        window.document.body.className = 'editable';
+                    } else {
+                        window.document.body.removeAttribute('contenteditable');
+                        window.document.body.className = '';
+                    }
+                }
+
+                var handleKey = function(e) {
+                    if (e.keyCode === 69 && e.ctrlKey === true && e.shiftKey === true) {
+                        toggleEditmode();
+                    }
+
+                    if (editMode) return false;
+
+                    if (e.keyCode === 37){
+                        prev();
+                    } else if (e.keyCode === 39){
+                        next();
+                    }
+                };
+
+                var route = function() {
+                    var path = window.location.pathname;
+                    var parts = path.split("/");
+
+                    if (parts > 1) {
+                        if (parts[parts.length-1].match(/\d+/) && parts[parts.length - 2] == 'slides') {
+                            index = parts[parts.length-1];
+                        }
+                    }
+
+                    show();
+                }
+
+                var init = function() {
+                    sections = qsa('section');
+                    sections = [].slice.call(sections);
+
+                    sections.sort(function(a, b) {
+                        var aOrder = a.getAttribute('data-order');
+                        var bOrder = b.getAttribute('data-order');
+                        if (aOrder !== null && bOrder !== null) {
+                            aOrder = parseInt(aOrder, 10);
+                            bOrder = parseInt(bOrder, 10);
+                            return aOrder > bOrder;
+                        }
+                        return -1;
+                    });
+
+                    route();
+
+                    window.document.addEventListener('keyup', handleKey);
+                };
+
+
+
+                init();
+
+            })()
+        </script>
+    </body>
+</html>
